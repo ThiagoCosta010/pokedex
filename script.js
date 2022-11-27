@@ -21,29 +21,32 @@ const renderPokemon = async (pokemon) => {
     const data = await fetchPokemon(pokemon)
     if(data){
         pokemonImage.style.display = 'block'
-        pokemonName.innerHTML = data.name 
+        pokemonName.innerHTML = data.name
         pokemonNumber.innerHTML = data.id
-        pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
-        input.value = ''
+        pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'] 
         searchPokemon = data.id
     }else{
+        pokemonImage.style.display = 'none'
         pokemonName.innerHTML = 'Not Found :c'
         pokemonNumber.innerHTML = ''
-        pokemonImage.style.display = 'none'
     }
 }
-form.addEventListener('submit', function(event){
+form.addEventListener('submit',(event) => {
     event.preventDefault()
     renderPokemon(input.value.toLowerCase())
 })
-buttonPrev.addEventListener('click',() => {
+buttonPrev.addEventListener('click', () => {
     if(searchPokemon > 1){
         searchPokemon -= 1
         renderPokemon(searchPokemon)
     }
 })
-buttonNext.addEventListener('click',() => {
+buttonNext.addEventListener('click', () => {
     searchPokemon += 1
     renderPokemon(searchPokemon)
 })
 renderPokemon(searchPokemon)
+/*
+(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
+*/
